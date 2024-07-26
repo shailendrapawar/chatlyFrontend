@@ -16,11 +16,7 @@
     animation-duration: 0.5s;
 }
 .msg-body p{
-
-    font-weight: 600;
     font-size: 0.8rem;
-    font-family: cursive;
-    /* height: 60%; */
     word-wrap:break-word;
     text-overflow: ellipsis;
 
@@ -30,7 +26,8 @@
     top:0px;
     right: 5px;
     font-size: 0.65rem;
-    font-weight: 600;
+    font-weight: 500;
+    font-family: cursive;
 
 }
 .msg-body i{

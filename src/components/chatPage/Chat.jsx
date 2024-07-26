@@ -2,21 +2,23 @@ import React, { useEffect, useRef, useState } from 'react'
 import './chat.css'
 import { user } from "../loginPage/LoginPage"
 
-const endpoint = "http://localhost:3000"
 import { io } from "socket.io-client"
 import { useNavigate } from 'react-router-dom'
 import Msg from '../msg/Msg'
-import ReactScrollToBottom from 'react-scroll-to-bottom'
+import { IoExitOutline } from "react-icons/io5";
+
+const endpoint=import.meta.env.VITE_API_URL;
 const socket = io(endpoint)
-// let userId=socket.id;
+
 const Chat = () => {
    
     const navigate = useNavigate()
     const msgRef = useRef();
-    const[notify,setNotify]=useState("")
+    const[notify,setNotify]=useState(`Welcome to chat ${user}`)
 
     const[msgArr,setMsgArr]=useState([]);
     const msgAreaRef=useRef()
+    const[activeUsers,setActiveUsers]=useState(0);
 
    
     const sendMsg = async(e) => {
@@ -31,7 +33,6 @@ const Chat = () => {
                 time:
                 new Date(Date.now()).getHours()+":"+new Date(Date.now()).getMinutes(),
             });
-            // setMsgArr([...msgArr,msgRef.current.value])
         msgRef.current.value = ""
         }
     }
@@ -41,7 +42,10 @@ const Chat = () => {
         if (user == null) {
             navigate("/")
         }
-   
+
+        socket.emit("enter",{
+            userName:user
+        })
 
         socket.on("recieve", (msgs) => {
         
@@ -50,9 +54,15 @@ const Chat = () => {
 
         socket.on("notify",(msg)=>{
             setNotify(msg);
+            
         })
-        
+        socket.on("update",(msg)=>{
+            setActiveUsers(msg)
+        })
 
+
+        
+        return ()=> socket.disconnect()
 
 
     }, [socket])
@@ -68,7 +78,11 @@ const Chat = () => {
 
     return (
         <div className=' chat-body'>
-            <h2>{notify}</h2>
+            <div className='top-area'><span>{notify}</span><b>ACTIVE:{activeUsers}</b><IoExitOutline onClick={()=>{
+                navigate("/")
+                socket.disconnect()
+                }} className='exit-icon'/></div>
+            
 
             <div className='bottom-area'>
                 <div  className='chat-area' id="chat-area" ref={msgAreaRef} >
