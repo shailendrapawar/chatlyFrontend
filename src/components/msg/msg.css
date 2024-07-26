@@ -1,0 +1,51 @@
+.msg-body{
+    height: auto;
+    max-height: auto;
+    min-height: 45px;
+    width:auto;
+    min-width: 50px;
+    max-width: 350px;
+    padding: 0px 10px 5px 10px;
+    background-color: white;
+    color: black;
+    align-self: flex-end;
+    margin: 5px 5px 5px 5px;
+    border-radius: 10px;
+    position: relative;
+    animation-name: entry;
+    animation-duration: 0.5s;
+}
+.msg-body p{
+
+    font-weight: 600;
+    font-size: 0.8rem;
+    font-family: cursive;
+    /* height: 60%; */
+    word-wrap:break-word;
+    text-overflow: ellipsis;
+
+}
+.msg-body b{
+    position: absolute;
+    top:0px;
+    right: 5px;
+    font-size: 0.65rem;
+    font-weight: 600;
+
+}
+.msg-body i{
+    position: absolute;
+    bottom: 2px;
+    font-size: 0.5rem;
+}
+
+@keyframes entry {
+    0%{
+        translate: 50px;opacity: 0%;
+    }
+    100%{
+        translate: 0px;
+        opacity: 100%;
+    }
+    
+}
