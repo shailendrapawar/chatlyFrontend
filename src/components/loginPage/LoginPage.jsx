@@ -1,4 +1,3 @@
-// src/Login.js
 
 import React, { useEffect, useState } from 'react';
 import './login.css';
@@ -14,12 +13,12 @@ const navigate=useNavigate()
 
     e.preventDefault();
     user=document.getElementById("name").value
-    // console.log(user);
+ 
 
     if(name!==""){
         localStorage.setItem("chat_userName",name);
         navigate("/chat")
-        // console.log(name)
+
     }else{
         alert("enter name first")
     }
@@ -35,18 +34,19 @@ const navigate=useNavigate()
   return (
     <div className="login-container ">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2 className=''>Login</h2>
+        <h2 className=''>Chatly</h2>
         <div className="form-group">
           <label htmlFor="name">Name:</label>
           <input 
             type="text"
             id="name"
             value={name}
+            placeholder='enter your name'
             onChange={(e) => setName(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Submit</button>
+        <button type="submit">enter chat</button>
       </form>
     </div>
   );
